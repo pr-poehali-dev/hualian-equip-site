@@ -8,6 +8,12 @@ import Icon from '@/components/ui/icon';
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleNavigate = (section: string) => {
+    setActiveSection(section);
+    setMobileMenuOpen(false);
+  };
 
   const equipment = [
     {
@@ -80,30 +86,68 @@ const Index = () => {
               </button>
             </nav>
 
-            <Button className="bg-[#0071e3] hover:bg-[#0056b3] text-white">
+            <Button className="hidden md:inline-flex bg-[#0071e3] hover:bg-[#0056b3] text-white">
               Получить консультацию
             </Button>
+
+            <button
+              className="md:hidden p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Меню"
+            >
+              <Icon name={mobileMenuOpen ? 'X' : 'Menu'} size={24} className="text-[#303239]" />
+            </button>
           </div>
+
+          {mobileMenuOpen && (
+            <div className="md:hidden border-t border-gray-200 py-4">
+              <nav className="flex flex-col gap-4">
+                <button 
+                  onClick={() => handleNavigate('home')}
+                  className={`text-left px-4 py-2 text-sm font-medium transition-colors ${activeSection === 'home' ? 'text-[#0071e3] bg-gray-50' : 'text-[#303239]'}`}
+                >
+                  Главная
+                </button>
+                <button 
+                  onClick={() => handleNavigate('catalog')}
+                  className={`text-left px-4 py-2 text-sm font-medium transition-colors ${activeSection === 'catalog' ? 'text-[#0071e3] bg-gray-50' : 'text-[#303239]'}`}
+                >
+                  Каталог
+                </button>
+                <button 
+                  onClick={() => handleNavigate('contacts')}
+                  className={`text-left px-4 py-2 text-sm font-medium transition-colors ${activeSection === 'contacts' ? 'text-[#0071e3] bg-gray-50' : 'text-[#303239]'}`}
+                >
+                  Контакты
+                </button>
+                <div className="px-4">
+                  <Button className="w-full bg-[#0071e3] hover:bg-[#0056b3] text-white">
+                    Получить консультацию
+                  </Button>
+                </div>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
       {activeSection === 'home' && (
         <>
-          <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+          <section className="py-12 md:py-20 bg-gradient-to-b from-gray-50 to-white">
             <div className="container mx-auto px-4">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                 <div>
-                  <h2 className="text-5xl font-bold text-[#303239] mb-6 leading-tight">
+                  <h2 className="text-3xl md:text-5xl font-bold text-[#303239] mb-4 md:mb-6 leading-tight">
                     Профессиональное оборудование для пищевого производства
                   </h2>
-                  <p className="text-lg text-gray-600 mb-8">
+                  <p className="text-base md:text-lg text-gray-600 mb-6 md:mb-8">
                     Прямые поставки от китайского завода-производителя Hualian Machinery. 
                     Надежность, качество и выгодные цены без посредников.
                   </p>
-                  <div className="flex gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                     <Button 
                       size="lg" 
-                      className="bg-[#0071e3] hover:bg-[#0056b3] text-white"
+                      className="bg-[#0071e3] hover:bg-[#0056b3] text-white w-full sm:w-auto"
                       onClick={() => setActiveSection('catalog')}
                     >
                       Смотреть каталог
@@ -111,18 +155,18 @@ const Index = () => {
                     <Button 
                       size="lg" 
                       variant="outline" 
-                      className="border-[#0071e3] text-[#0071e3] hover:bg-[#0071e3] hover:text-white"
+                      className="border-[#0071e3] text-[#0071e3] hover:bg-[#0071e3] hover:text-white w-full sm:w-auto"
                       onClick={() => setActiveSection('contacts')}
                     >
                       Связаться с нами
                     </Button>
                   </div>
                 </div>
-                <div className="relative">
+                <div className="relative order-first md:order-last">
                   <img 
                     src="https://cdn.poehali.dev/projects/c70ab85f-9a99-4bed-9623-357d52d5f171/files/f207c400-0b20-460d-ba7b-b7f72709283f.jpg" 
                     alt="Пищевое оборудование Hualian"
-                    className="w-full h-[500px] object-cover shadow-2xl"
+                    className="w-full h-[300px] md:h-[500px] object-cover shadow-2xl"
                   />
                 </div>
               </div>
