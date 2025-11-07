@@ -55,15 +55,30 @@ const Index = () => {
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#0071e3] flex items-center justify-center">
-                <Icon name="Factory" className="text-white" size={24} />
+            {activeSection === 'home' ? (
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#0071e3] flex items-center justify-center">
+                  <Icon name="Factory" className="text-white" size={24} />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-[#303239]">Hualian Machinery</h1>
+                  <p className="text-xs text-gray-500">Пищевое оборудование из Китая</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-[#303239]">Hualian Machinery</h1>
-                <p className="text-xs text-gray-500">Пищевое оборудование из Китая</p>
-              </div>
-            </div>
+            ) : (
+              <button 
+                onClick={() => handleNavigate('home')}
+                className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+              >
+                <div className="w-10 h-10 bg-[#0071e3] flex items-center justify-center">
+                  <Icon name="Factory" className="text-white" size={24} />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-[#303239]">Hualian Machinery</h1>
+                  <p className="text-xs text-gray-500">Пищевое оборудование из Китая</p>
+                </div>
+              </button>
+            )}
             
             <nav className="hidden md:flex gap-8">
               <button 
@@ -100,7 +115,7 @@ const Index = () => {
           </div>
 
           {mobileMenuOpen && (
-            <div className="md:hidden border-t border-gray-200 py-4">
+            <div className="md:hidden border-t border-gray-200 py-4 absolute top-full left-0 right-0 bg-white shadow-lg">
               <nav className="flex flex-col gap-4">
                 <button 
                   onClick={() => handleNavigate('home')}
